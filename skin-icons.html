@@ -1,0 +1,42 @@
+<!--
+@license
+Copyright (c) 2017 The Fabric Elements Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://fabricelements.github.io/LICENSE.txt
+The complete set of authors may be found at http://fabricelements.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://fabricelements.github.io/CONTRIBUTORS.txt
+Code distributed by Erny Sans as part of the Fabric Elements is also
+subject to an additional IP rights grant found at http://ernysans.github.io/PATENTS.txt
+-->
+
+<!--
+
+`skin-icons` is a utility import that includes the definition for the `iron-icon` element, `skin-iconset-svg` element, as well as an import for the default icon set.
+
+The `skin-icons` directory also includes imports for additional icon sets that can be loaded into your project.
+
+Example loading icon set:
+
+    <link rel="import" href="../skin-icons/icon-social.html">
+
+To use an icon from one of these sets, first prefix your `iron-icon` with the icon set name, followed by a colon, ":", and then the icon id.
+
+Example using the directions-bus icon from the maps icon set:
+
+    <iron-icon icon="icon-social:twitter"></iron-icon>
+
+    To load a subset of icons from one of the default `skin-icons` sets, you can
+    use the [poly-icon](https://poly-icon.appspot.com/) tool. It allows you
+    to select individual icons, and creates an iconset from them that you can
+    use directly in your elements.
+
+See [iron-icon](#iron-icon) for more information about working with icons.
+
+See [skin-iconset](#skin-iconset) and [skin-iconset-svg](#skin-iconset-svg) for more information about how to create a custom iconset.
+
+@group Skin Collection
+@pseudoElement skin-icons
+@demo demo/index.html
+-->
+<link rel="import" href="icon-social.html">
+<link rel="import" href="icon-brand.html">
+
