@@ -12,18 +12,19 @@ subject to an additional IP rights grant found at http://ernysans.github.io/PATE
 <head>
   <title>iron-icons demo</title>
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../polymer/lib/elements/custom-style.html">
+  <link rel="import" href="../../polymer/lib/elements/dom-bind.html">
   <link rel="import" href="../../paper-styles/demo-pages.html">
   <link rel="import" href="../../paper-styles/color.html">
-  <link rel="import" href="../../iron-flex-layout/iron-flex-layout.html">
-
-  <!-- load default iconset -->
-  <!--<link rel="import" href="../iron-icons.html">-->
-
+  <link rel="import" href="../../iron-meta/iron-meta.html">
+  
   <!-- load the rest -->
   <link rel="import" href="../icon-brand.html">
   <link rel="import" href="../icon-social.html">
 
-
+</head>
+<body>
+<custom-style>
   <style is="custom-style">
     h2 {
       text-transform: capitalize;
@@ -39,11 +40,11 @@ subject to an additional IP rights grant found at http://ernysans.github.io/PATE
     }
 
     .set {
+      display: block;
+      text-align: center;
       margin: auto;
       padding: 1em 0;
       border-bottom: 1px solid silver;
-      @apply(--layout-horizontal);
-      @apply(--layout-wrap);
     }
 
     .set:last-of-type {
@@ -55,7 +56,7 @@ subject to an additional IP rights grant found at http://ernysans.github.io/PATE
     }
 
     .set:nth-of-type(4n-2) {
-      color: var(--paper-grey-900);
+      color: var(--paper-pink-500);
     }
 
     .set:nth-of-type(4n-1) {
@@ -67,12 +68,10 @@ subject to an additional IP rights grant found at http://ernysans.github.io/PATE
     }
 
     .container {
-      min-width: 10em;
-      padding: 1em 0.5em;
+      display: inline-block;
+      width: 10em;
+      margin: 1em 0.5em;
       text-align: center;
-      @apply(--layout-vertical);
-      @apply(--layout-center);
-      @apply(--layout-flex);
     }
 
     .container > div {
@@ -81,29 +80,38 @@ subject to an additional IP rights grant found at http://ernysans.github.io/PATE
       font-size: 10px;
     }
   </style>
-</head>
-<body>
-<template is="dom-bind">
-  <iron-meta type="iconset" list="{{iconsets}}"></iron-meta>
+</custom-style>
 
-  <template is="dom-repeat" items="{{iconsets}}">
-    <h2>{{item.name}}</h2>
-
-    <div class="set">
-      <template is="dom-repeat" items="{{getIconNames(item)}}">
-          <span class="container">
-            <iron-icon icon="{{item}}"></iron-icon>
-            <div>{{item}}</div>
-          </span>
+<dom-bind>
+  <template is="dom-bind" id="scope">
+    <dom-repeat>
+      <template is="dom-repeat" id="iconsetRepeat">
+        <h2>{{item.name}}</h2>
+        <dom-repeat class="set">
+          <template is="dom-repeat" items="{{getIconNames(item)}}">
+              <span class="container">
+                <iron-icon icon="{{item}}"></iron-icon>
+                <div>{{item}}</div>
+              </span>
+          </template>
+        </dom-repeat>
       </template>
-    </div>
+    </dom-repeat>
   </template>
-</template>
+</dom-bind>
 
 <script>
-  document.querySelector('[is=dom-bind]').getIconNames = function (iconset) {
-    return iconset.getIconNames();
-  };
+  window.addEventListener('WebComponentsReady', () => {
+    const scope = document.querySelector('#scope');
+    scope.getIconNames = (iconset) => {
+      return iconset.getIconNames();
+    };
+    scope.parentNode.getIconNames = scope.getIconNames;
+    const iconsetRepeat = document.querySelector('#iconsetRepeat');
+    iconsetRepeat.items = new Polymer.IronMeta({
+      type: 'iconset',
+    }).list;
+  });
 </script>
 </body>
 </html>
